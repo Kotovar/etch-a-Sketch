@@ -1,2 +1,3 @@
 # Etch-a-Sketch
-Sketch project 
+run index.html
+have fun
