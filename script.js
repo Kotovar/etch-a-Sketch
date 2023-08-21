@@ -1,31 +1,49 @@
-//создание сетки 16 х 16
 let container = document.getElementById("container");
 container.style.display = "grid";
-container.style.gridTemplateColumns = "repeat(16, 25px)";
-container.style.gridTemplateRows = "repeat(16, 25px)";
 
-for (let i = 0; i < 256; i++) {
-  let cell = document.createElement("div");
+//функция для создания сетки по аргументу
+function create(number) {
+  let header = document.getElementById("header");
+  header.textContent = `Сетка ${number} на ${number}`;
+  container.style.gridTemplateColumns = "repeat(" + number + ", auto)";
+  container.style.gridTemplateRows = "repeat(" + number + ", auto)";
 
-  cell.style.width = "auto";
-  cell.style.height = "auto";
+  for (let i = 0; i < number * number; i++) {
+    let cell = document.createElement("div");
 
-  container.appendChild(cell);
-  cell.classList.add("cell");
+    cell.style.width = "auto";
+    cell.style.height = "auto";
+
+    container.appendChild(cell);
+    cell.classList.add("cell");
+    // listener();
+  }
 }
+
+create(16); //стартовая сетка
 
 //создание эффекта зависания мыши
 
-let cell = document.getElementsByClassName("cell");
+container.addEventListener("mouseover", function (e) {
+  if (e.target.classList.contains("cell")) {
+    e.target.style.backgroundColor = "red";
+  }
+});
 
-for (let i = 0; i < cell.length; i++) {
-  cell[i].addEventListener("mouseover", function () {
-    cell[i].style.backgroundColor = "red";
-  });
-}
+// container.addEventListener("mouseout", function (e) {
+//   if (e.target.classList.contains("cell")) {
+//     e.target.style.backgroundColor = "white";
+//   }
+// });
 
-for (let i = 0; i < cell.length; i++) {
-  cell[i].addEventListener("mouseout", function () {
-    cell[i].style.backgroundColor = "white";
-  });
-}
+// настройка смены размера поля
+let button = document.getElementById("reset");
+button.addEventListener("click", function () {
+  let choice = prompt("Какой размер?");
+  if (choice >= 2 && choice <= 100) {
+    container.replaceChildren();
+    create(choice);
+  } else {
+    alert("Так нельзя");
+  }
+});
