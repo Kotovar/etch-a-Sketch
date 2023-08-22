@@ -1,29 +1,24 @@
-let container = document.getElementById("container"); //основное поле
-let color = document.getElementById("color");
+const container = document.getElementById("container"); //основное поле
+const color = document.getElementById("color");
+const button_change = document.getElementById("change");
+const button_reset = document.getElementById("reset");
+const button_eraser = document.getElementById("eraser");
+const button_crazy = document.getElementById("crazy");
 let colorActive = "black";
-let button_change = document.getElementById("change");
-let button_reset = document.getElementById("reset");
-let button_eraser = document.getElementById("eraser");
-let button_crazy = document.getElementById("crazy");
 let crazy = false;
 container.style.display = "grid";
 
 //рандомный цвет
 
-function randomColor() {
-  colorActive =
-    "rgb(" +
-    Math.floor(Math.random() * 256) +
-    " " +
-    Math.floor(Math.random() * 256) +
-    " " +
-    Math.floor(Math.random() * 256) +
-    ")";
+const randomColor = () => {
+  colorActive = `rgb(${Math.floor(Math.random() * 256)} ${Math.floor(
+    Math.random() * 256
+  )} ${Math.floor(Math.random() * 256)})`;
   return colorActive;
-}
+};
 
 //режим ластика
-button_eraser.onclick = function () {
+button_eraser.addEventListener("click", function () {
   if (colorActive !== "white") {
     colorActive = "white";
     button_eraser.classList.add("selected_tool");
@@ -34,8 +29,7 @@ button_eraser.onclick = function () {
   color.classList.remove("selected_tool");
   button_crazy.classList.remove("selected_tool");
   crazy = false;
-  //   button_eraser.classList.toggle("selected_tool");
-};
+});
 
 //функция для отслеживания, какой цвет выбран из палитры
 color.addEventListener("input", function (e) {
@@ -49,12 +43,9 @@ color.addEventListener("input", function (e) {
 //режим безумия
 
 button_crazy.addEventListener("click", function () {
+  crazy = !crazy;
+  button_crazy.classList.toggle("selected_tool");
   if (!crazy) {
-    button_crazy.classList.add("selected_tool");
-    crazy = !crazy;
-  } else {
-    button_crazy.classList.remove("selected_tool");
-    crazy = !crazy;
     colorActive = color.value;
   }
   button_eraser.classList.remove("selected_tool");
@@ -65,8 +56,8 @@ button_crazy.addEventListener("click", function () {
 function create(number) {
   let header = document.getElementById("header");
   header.textContent = `Grid ${number} x ${number}`;
-  container.style.gridTemplateColumns = "repeat(" + number + ", auto)";
-  container.style.gridTemplateRows = "repeat(" + number + ", auto)";
+  container.style.gridTemplateColumns = `repeat(${number}, auto)`;
+  container.style.gridTemplateRows = `repeat(${number}, auto)`;
 
   for (let i = 0; i < number * number; i++) {
     let cell = document.createElement("div");
@@ -80,9 +71,9 @@ function create(number) {
 }
 
 button_reset.addEventListener("click", function () {
-  for (let i = 0; i < container.childElementCount; i++) {
-    container.children[i].style.backgroundColor = "white";
-  }
+  Array.from(container.children).forEach((cell) => {
+    cell.style.backgroundColor = "white";
+  });
 });
 
 create(16); //стартовая сетка
@@ -91,12 +82,8 @@ create(16); //стартовая сетка
 
 container.addEventListener("mouseover", function (e) {
   if (e.target.classList.contains("cell")) {
-    if (crazy) {
-      randomColor();
-      e.target.style.backgroundColor = colorActive;
-    } else {
-      e.target.style.backgroundColor = colorActive;
-    }
+    crazy ? randomColor() : null;
+    e.target.style.backgroundColor = colorActive;
   }
 });
 
@@ -104,10 +91,7 @@ container.addEventListener("mouseover", function (e) {
 
 button_change.addEventListener("click", function () {
   let choice = prompt("Какой размер? (от 2 до 100)");
-  if (choice >= 2 && choice <= 100) {
-    container.replaceChildren();
-    create(choice);
-  } else {
-    alert("некорректный ввод");
-  }
+  choice >= 2 && choice <= 100
+    ? (container.replaceChildren(), create(choice))
+    : alert("некорректный ввод");
 });
