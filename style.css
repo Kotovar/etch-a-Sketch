@@ -4,11 +4,17 @@
   width: 35%;
 }
 
-/* div {
-  border: 1px solid black;
-} */
-
-#reset {
+#change {
   margin-bottom: 1%;
   font-size: 2rem;
+}
+
+button {
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+.selected_tool {
+  border: 4px solid green;
+  box-shadow: 3px -1px 1px green;
 }

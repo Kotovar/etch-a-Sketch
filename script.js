@@ -1,8 +1,20 @@
 let container = document.getElementById("container"); //основное поле
 let color = document.getElementById("color");
 let colorActive = "black";
-let button = document.getElementById("reset");
+let button_change = document.getElementById("change");
+let button_reset = document.getElementById("reset");
+let button_eraser = document.getElementById("eraser");
 container.style.display = "grid";
+
+//режим ластика
+button_eraser.onclick = function () {
+  if (colorActive !== "white") {
+    colorActive = "white";
+  } else {
+    colorActive = "black";
+  }
+  button_eraser.classList.toggle("selected_tool");
+};
 
 //функция для отслеживания, какой цвет выбран из палитры
 color.addEventListener("input", function (e) {
@@ -26,6 +38,12 @@ function create(number) {
     cell.classList.add("cell");
   }
 }
+
+button_reset.addEventListener("click", function () {
+  for (let i = 0; i < container.childElementCount; i++) {
+    container.children[i].style.backgroundColor = "white";
+  }
+});
 
 create(16); //стартовая сетка
 
@@ -75,8 +93,8 @@ container.addEventListener("mouseover", function (e) {
 
 // настройка смены размера поля
 
-button.addEventListener("click", function () {
-  let choice = prompt("Какой размер?");
+button_change.addEventListener("click", function () {
+  let choice = prompt("Какой размер? (от 2 до 100)");
   if (choice >= 2 && choice <= 100) {
     container.replaceChildren();
     create(choice);
