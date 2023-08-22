@@ -4,27 +4,67 @@ let colorActive = "black";
 let button_change = document.getElementById("change");
 let button_reset = document.getElementById("reset");
 let button_eraser = document.getElementById("eraser");
+let button_crazy = document.getElementById("crazy");
+let crazy = false;
 container.style.display = "grid";
+
+//рандомный цвет
+
+function randomColor() {
+  colorActive =
+    "rgb(" +
+    Math.floor(Math.random() * 256) +
+    " " +
+    Math.floor(Math.random() * 256) +
+    " " +
+    Math.floor(Math.random() * 256) +
+    ")";
+  return colorActive;
+}
 
 //режим ластика
 button_eraser.onclick = function () {
   if (colorActive !== "white") {
     colorActive = "white";
+    button_eraser.classList.add("selected_tool");
   } else {
-    colorActive = "black";
+    button_eraser.classList.remove("selected_tool");
+    colorActive = color.value;
   }
-  button_eraser.classList.toggle("selected_tool");
+  color.classList.remove("selected_tool");
+  button_crazy.classList.remove("selected_tool");
+  crazy = false;
+  //   button_eraser.classList.toggle("selected_tool");
 };
 
 //функция для отслеживания, какой цвет выбран из палитры
 color.addEventListener("input", function (e) {
   colorActive = e.target.value;
+  button_eraser.classList.remove("selected_tool");
+  button_crazy.classList.remove("selected_tool");
+  color.classList.add("selected_tool");
+  crazy = false;
+});
+
+//режим безумия
+
+button_crazy.addEventListener("click", function () {
+  if (!crazy) {
+    button_crazy.classList.add("selected_tool");
+    crazy = !crazy;
+  } else {
+    button_crazy.classList.remove("selected_tool");
+    crazy = !crazy;
+    colorActive = color.value;
+  }
+  button_eraser.classList.remove("selected_tool");
+  color.classList.remove("selected_tool");
 });
 
 //функция для создания сетки по аргументу
 function create(number) {
   let header = document.getElementById("header");
-  header.textContent = `Сетка ${number} на ${number}`;
+  header.textContent = `Grid ${number} x ${number}`;
   container.style.gridTemplateColumns = "repeat(" + number + ", auto)";
   container.style.gridTemplateRows = "repeat(" + number + ", auto)";
 
@@ -51,43 +91,12 @@ create(16); //стартовая сетка
 
 container.addEventListener("mouseover", function (e) {
   if (e.target.classList.contains("cell")) {
-    // let computedStyle = window.getComputedStyle(e.target);
-    // let currentColor = computedStyle.backgroundColor;
-
-    e.target.style.backgroundColor = colorActive;
-
-    // switch (currentColor) {
-    //   case "rgba(0, 0, 0, 0)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.1)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.2)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.3)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.4)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.5)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.6)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.7)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.8)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
-    //     break;
-    //   case "rgba(0, 0, 0, 0.9)":
-    //     e.target.style.backgroundColor = "rgba(0, 0, 0, 1.0)";
-    //     break;
-    // }
+    if (crazy) {
+      randomColor();
+      e.target.style.backgroundColor = colorActive;
+    } else {
+      e.target.style.backgroundColor = colorActive;
+    }
   }
 });
 
