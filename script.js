@@ -9,7 +9,6 @@ let crazy = false;
 container.style.display = "grid";
 
 //рандомный цвет
-
 const randomColor = () => {
   colorActive = `rgb(${Math.floor(Math.random() * 256)} ${Math.floor(
     Math.random() * 256
@@ -41,7 +40,6 @@ color.addEventListener("input", function (e) {
 });
 
 //режим безумия
-
 button_crazy.addEventListener("click", function () {
   crazy = !crazy;
   button_crazy.classList.toggle("selected_tool");
@@ -61,15 +59,14 @@ function create(number) {
 
   for (let i = 0; i < number * number; i++) {
     let cell = document.createElement("div");
-
     cell.style.width = "auto";
     cell.style.height = "auto";
-
     container.appendChild(cell);
     cell.classList.add("cell");
   }
 }
 
+//функция сброса
 button_reset.addEventListener("click", function () {
   Array.from(container.children).forEach((cell) => {
     cell.style.backgroundColor = "white";
@@ -79,7 +76,6 @@ button_reset.addEventListener("click", function () {
 create(16); //стартовая сетка
 
 //рисование по сетке выбранным цветом
-
 container.addEventListener("mouseover", function (e) {
   if (e.target.classList.contains("cell")) {
     crazy ? randomColor() : null;
@@ -88,7 +84,6 @@ container.addEventListener("mouseover", function (e) {
 });
 
 // настройка смены размера поля
-
 button_change.addEventListener("click", function () {
   let choice = prompt("Какой размер? (от 2 до 100)");
   choice >= 2 && choice <= 100
