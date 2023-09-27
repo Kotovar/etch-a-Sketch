@@ -85,8 +85,8 @@ container.addEventListener("mouseover", function (e) {
 
 // настройка смены размера поля
 button_change.addEventListener("click", function () {
-  let choice = prompt("Какой размер? (от 2 до 100)");
+  let choice = prompt("What size? (from 2 to 100)");
   choice >= 2 && choice <= 100
     ? (container.replaceChildren(), create(choice))
-    : alert("некорректный ввод");
+    : alert("incorrect input");
 });
