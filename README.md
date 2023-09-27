@@ -18,4 +18,4 @@ To use etch-a-Sketch, simply download project open the index.html file in your b
 etch-a-Sketch is built with HTML, CSS and JavaScript. 
 ## Credits
 
-This project was inspired by [The Odin Project], which is an open source curriculum for learning web development.
+This project was inspired by [[The Odin Project](https://www.theodinproject.com/lessons/foundations-etch-a-sketch)], which is an open source curriculum for learning web development.
