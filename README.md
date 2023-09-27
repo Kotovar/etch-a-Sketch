@@ -1,3 +1,6 @@
+
+![view](https://github.com/Kotovar/etch-a-Sketch/assets/77914431/e6a27a7b-d235-4ff9-8de7-fefed41bcf07)
+
 # etch-a-Sketch
 
 etch-a-Sketch is a web application that lets you draw on the screen like the classic toy. You can choose the color of the brush, as well as erase or clear your drawing.
