@@ -1,4 +1,3 @@
-
 ![view](https://github.com/Kotovar/etch-a-Sketch/assets/77914431/e6a27a7b-d235-4ff9-8de7-fefed41bcf07)
 
 # etch-a-Sketch
