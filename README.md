@@ -1,4 +1,4 @@
 # Etch-a-Sketch
-run index.html  
+## run index.html  
 
-have fun
+## have fun
